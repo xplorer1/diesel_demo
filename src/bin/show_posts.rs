@@ -9,9 +9,9 @@ fn main() {
     use diesel_demo::schema::posts::dsl::*;
 
     let connection = establish_connection(); //from diesel_demo
-    let results = posts.filter(published.eq(true)).limit(5).load::<Post>(&connection);
+    let results = posts.filter(published.eq(true)).limit(5).load::<Post>(&connection).expect("Error loading posts");
 
-    println!("Displaying {} posts", results.len());
+    println!("Displaying {:?} posts", results.len());
     for post in results {
         println!("{}", post.title);
         println!("-------\n");
